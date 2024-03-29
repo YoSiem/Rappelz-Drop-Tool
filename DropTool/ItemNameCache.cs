@@ -23,36 +23,32 @@ public class ItemNameCache
         return _instance;
     }
 
-    public async Task<string> GetItemNameAsync(int itemId)
+    public async Task InitializeCacheAsync()
     {
-        // Jeśli nazwa jest już w cache, zwróć ją
+        string query = @"
+            SELECT id, n.[value] as ItemName
+            FROM ItemResource as id
+            LEFT JOIN StringResource as n ON id.[name_id] = n.[code];";
+
+        DataTable result = await _dbManager.ExecuteQueryAsync(query);
+
+        foreach (DataRow row in result.Rows)
+        {
+            int id = row.Field<int>("id");
+            string itemName = row.Field<string>("ItemName");
+            _cache[id] = itemName;
+        }
+    }
+
+    public string GetItemName(int itemId)
+    {
         if (_cache.TryGetValue(itemId, out string name))
         {
             return name;
         }
 
-        // W przeciwnym razie, pobierz nazwę z bazy danych
-        string query = $@"
-            SELECT n.[value] as ItemName
-            FROM ItemResource as id
-            LEFT JOIN StringResource as n ON id.[name_id] = n.[code]
-            WHERE id.[id] = {itemId}";
-
-        DataTable result = await _dbManager.ExecuteQueryAsync(query);
-
-        string itemName = result.Rows.Count > 0 ? result.Rows[0]["ItemName"].ToString() : "Unknown Item";
-
-        // Dodaj nazwę przedmiotu do cache
-        _cache[itemId] = itemName;
-
-        return itemName;
+        return "Unknown Item";
     }
 
-    public void AddToCache(int itemId, string itemName)
-    {
-        if (!_cache.ContainsKey(itemId))
-        {
-            _cache[itemId] = itemName;
-        }
-    }
+
 }

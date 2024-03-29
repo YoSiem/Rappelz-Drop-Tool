@@ -98,7 +98,7 @@ namespace DropTool
                     int itemId = Convert.ToInt32(row[$"drop_item_id_0{i}"]);
                     if (itemId > 0)
                     {
-                        string itemName = await itemNameCache.GetItemNameAsync(itemId);
+                        string itemName = itemNameCache.GetItemName(itemId);
                         controls[$"TextBox_DropName_{i + 1}"].Text = itemName;
                     }
                     else if (itemId == 0)

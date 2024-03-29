@@ -43,6 +43,7 @@
             this.C_MonsterName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.C_MonsterID = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.C_DropLink = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.C_Location = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.TreeView_DropView = new System.Windows.Forms.TreeView();
             this.TextBox_MonsterID = new System.Windows.Forms.TextBox();
             this.TextBox_DropName_1 = new System.Windows.Forms.TextBox();
@@ -103,7 +104,6 @@
             this.label14 = new System.Windows.Forms.Label();
             this.Label_TotalChance = new System.Windows.Forms.Label();
             this.Btn_FilterMonsters = new System.Windows.Forms.Button();
-            this.C_Location = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             ((System.ComponentModel.ISupportInitialize)(this.UpDown_DropMin_1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.UpDown_DropMin_2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.UpDown_DropMin_3)).BeginInit();
@@ -183,6 +183,11 @@
             this.C_DropLink.Text = "Drop ID";
             this.C_DropLink.Width = 75;
             // 
+            // C_Location
+            // 
+            this.C_Location.Text = "Location";
+            this.C_Location.Width = 185;
+            // 
             // TreeView_DropView
             // 
             this.TreeView_DropView.Location = new System.Drawing.Point(619, 40);
@@ -226,7 +231,7 @@
             this.TextBox_MonsterID.ReadOnly = true;
             this.TextBox_MonsterID.Size = new System.Drawing.Size(100, 20);
             this.TextBox_MonsterID.TabIndex = 5;
-            this.TextBox_MonsterID.Text = "Monster ID";
+            this.TextBox_MonsterID.Text = "Drop ID";
             // 
             // TextBox_DropName_1
             // 
@@ -643,7 +648,7 @@
             this.Label_MonsterInfo.Name = "Label_MonsterInfo";
             this.Label_MonsterInfo.Size = new System.Drawing.Size(391, 21);
             this.Label_MonsterInfo.TabIndex = 57;
-            this.Label_MonsterInfo.Text = "Level: 999    /    Location: Marduka Wadi";
+            this.Label_MonsterInfo.Text = "Level:  /  Location:\r\n";
             // 
             // label11
             // 
@@ -659,7 +664,7 @@
             // 
             this.label12.AutoSize = true;
             this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label12.Location = new System.Drawing.Point(1445, 40);
+            this.label12.Location = new System.Drawing.Point(1466, 40);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(70, 13);
             this.label12.TabIndex = 59;
@@ -689,7 +694,7 @@
             // 
             this.Label_TotalChance.AutoSize = true;
             this.Label_TotalChance.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.Label_TotalChance.Location = new System.Drawing.Point(1436, 62);
+            this.Label_TotalChance.Location = new System.Drawing.Point(1458, 63);
             this.Label_TotalChance.Name = "Label_TotalChance";
             this.Label_TotalChance.Size = new System.Drawing.Size(99, 13);
             this.Label_TotalChance.TabIndex = 62;
@@ -704,11 +709,6 @@
             this.Btn_FilterMonsters.Text = "Filter";
             this.Btn_FilterMonsters.UseVisualStyleBackColor = true;
             this.Btn_FilterMonsters.Click += new System.EventHandler(this.Btn_FilterMonsters_Click);
-            // 
-            // C_Location
-            // 
-            this.C_Location.Text = "Location";
-            this.C_Location.Width = 185;
             // 
             // MainWindow
             // 
