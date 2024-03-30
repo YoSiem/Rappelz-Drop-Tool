@@ -26,16 +26,20 @@ namespace DropTool
             string query = $@"
                 SELECT id, sub_id, {string.Join(", ", Enumerable.Range(0, 10).Select(i => $"drop_item_id_0{i}"))} 
                 FROM MonsterDropTableResource 
-                WHERE id = {dropLinkId}
-                UNION ALL 
-                SELECT id, 0 AS sub_id, {string.Join(", ", Enumerable.Range(0, 10).Select(i => $"drop_item_id_0{i}"))} 
-                FROM DropGroupResource 
                 WHERE id = {dropLinkId};";
 
             DataTable dataTable = await dbManager.ExecuteQueryAsync(query);
 
             treeView.Nodes.Clear();
             treeView.BeginUpdate();
+
+            if (dataTable.Rows.Count == 0)
+            {
+                TreeNode noDataNode = new TreeNode("No drop data available for this Droplink ID.");
+                treeView.Nodes.Add(noDataNode);
+                treeView.EndUpdate();
+                return;
+            }
 
             foreach (DataRow row in dataTable.Rows)
             {

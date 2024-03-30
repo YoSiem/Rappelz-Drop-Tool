@@ -1,13 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+
 
 namespace DropTool
 {
@@ -30,10 +23,10 @@ namespace DropTool
         public MainWindow()
         {
             InitializeComponent();
-            dbManager = new DBManager("Server=127.0.0.1;Database=Arcadia;User Id=rappelzUser;Password=MyPassword123;");
+            dbManager = new DBManager();
             monsterLoader = new MonsterLoader(dbManager, ListView_Monsters);
             dropLoader = new DropLoader(dbManager, TreeView_DropView);
-            dropInfoLoader = new DropInfoLoader(dbManager, TreeView_DropView, this);
+            dropInfoLoader = new DropInfoLoader(dbManager, this);
             Load += async (sender, e) => await ItemNameCache.GetInstance(dbManager).InitializeCacheAsync();
             Load += async (sender, e) => await monsterLoader.LoadMonstersAsync();
         }
@@ -68,15 +61,11 @@ namespace DropTool
                 string[] parts = monsterString.Split(',');
                 await dropInfoLoader.LoadDropInfoAsync(int.Parse(parts[0]), int.Parse(parts[1]));
             }
-            else
-            {
-                MessageBox.Show($"Selected tag = {e.Node.Tag}", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
         }
 
-        private async void MainWindow_Load(object sender, EventArgs e)
+        private  void MainWindow_Load(object sender, EventArgs e)
         {
-           // await monsterLoader.LoadMonstersAsync();
+
         }
 
         private void ComboBox_SearchType_SelectedIndexChanged(object sender, EventArgs e)

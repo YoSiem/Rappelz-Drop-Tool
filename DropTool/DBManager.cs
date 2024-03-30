@@ -1,18 +1,38 @@
 ﻿using System;
 using System.Data;
 using System.Data.SqlClient;
+using System.IO;
 using System.Threading.Tasks;
-using System.Windows.Forms; // To display MessageBox
+using System.Windows.Forms;
 
 namespace DropTool
 {
     public class DBManager
     {
         private readonly string connectionString;
+        private const string ConfigFileName = "dbconfig.txt";
 
-        public DBManager(string connectionString)
+        public DBManager()
         {
-            this.connectionString = connectionString;
+            connectionString = LoadConnectionString();
+        }
+
+        private string LoadConnectionString()
+        {
+            if (!File.Exists(ConfigFileName))
+            {
+                CreateExampleConfigFile();
+                MessageBox.Show("A sample configuration file has been created. Please configure it with your database details and restart the application.", "Configuration Required", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                Environment.Exit(1);
+            }
+
+            return File.ReadAllText(ConfigFileName).Trim();
+        }
+
+        private void CreateExampleConfigFile()
+        {
+            string exampleConnectionString = "Server=your_server;Database=your_database;User Id=your_user;Password=your_password;";
+            File.WriteAllText(ConfigFileName, exampleConnectionString);
         }
 
         public async Task<DataTable> ExecuteQueryAsync(string query)
@@ -31,6 +51,11 @@ namespace DropTool
                         }
                     }
                 }
+            }
+            catch (SqlException ex)
+            {
+                MessageBox.Show($"Failed to connect to database: {ex.Message}", "Database Connection Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Environment.Exit(1);
             }
             catch (Exception ex)
             {
@@ -52,10 +77,16 @@ namespace DropTool
                     }
                 }
             }
+            catch (SqlException ex)
+            {
+                MessageBox.Show($"Failed to connect to database: {ex.Message}", "Database Connection Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Environment.Exit(1);
+                return -1;
+            }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error performing database operation: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return -1; // Return -1 to indicate an error
+                MessageBox.Show($"Error executing query: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return -1;
             }
         }
 
@@ -72,10 +103,16 @@ namespace DropTool
                     }
                 }
             }
+            catch (SqlException ex)
+            {
+                MessageBox.Show($"Failed to connect to database: {ex.Message}", "Database Connection Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Environment.Exit(1);
+                return null;
+            }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error retrieving data: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return null; // Return null to indicate an error
+                MessageBox.Show($"Error executing query: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return null;
             }
         }
     }

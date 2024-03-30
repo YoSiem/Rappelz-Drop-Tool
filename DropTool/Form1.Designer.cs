@@ -316,6 +316,11 @@
             // UpDown_DropMin_1
             // 
             this.UpDown_DropMin_1.Location = new System.Drawing.Point(1338, 80);
+            this.UpDown_DropMin_1.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
             this.UpDown_DropMin_1.Name = "UpDown_DropMin_1";
             this.UpDown_DropMin_1.Size = new System.Drawing.Size(61, 20);
             this.UpDown_DropMin_1.TabIndex = 16;
@@ -323,6 +328,11 @@
             // UpDown_DropMin_2
             // 
             this.UpDown_DropMin_2.Location = new System.Drawing.Point(1338, 108);
+            this.UpDown_DropMin_2.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
             this.UpDown_DropMin_2.Name = "UpDown_DropMin_2";
             this.UpDown_DropMin_2.Size = new System.Drawing.Size(61, 20);
             this.UpDown_DropMin_2.TabIndex = 17;
@@ -330,6 +340,11 @@
             // UpDown_DropMin_3
             // 
             this.UpDown_DropMin_3.Location = new System.Drawing.Point(1338, 134);
+            this.UpDown_DropMin_3.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
             this.UpDown_DropMin_3.Name = "UpDown_DropMin_3";
             this.UpDown_DropMin_3.Size = new System.Drawing.Size(61, 20);
             this.UpDown_DropMin_3.TabIndex = 18;
@@ -337,6 +352,11 @@
             // UpDown_DropMin_4
             // 
             this.UpDown_DropMin_4.Location = new System.Drawing.Point(1338, 160);
+            this.UpDown_DropMin_4.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
             this.UpDown_DropMin_4.Name = "UpDown_DropMin_4";
             this.UpDown_DropMin_4.Size = new System.Drawing.Size(61, 20);
             this.UpDown_DropMin_4.TabIndex = 19;
@@ -344,6 +364,11 @@
             // UpDown_DropMin_5
             // 
             this.UpDown_DropMin_5.Location = new System.Drawing.Point(1338, 186);
+            this.UpDown_DropMin_5.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
             this.UpDown_DropMin_5.Name = "UpDown_DropMin_5";
             this.UpDown_DropMin_5.Size = new System.Drawing.Size(61, 20);
             this.UpDown_DropMin_5.TabIndex = 20;
@@ -351,6 +376,11 @@
             // UpDown_DropMin_6
             // 
             this.UpDown_DropMin_6.Location = new System.Drawing.Point(1338, 212);
+            this.UpDown_DropMin_6.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
             this.UpDown_DropMin_6.Name = "UpDown_DropMin_6";
             this.UpDown_DropMin_6.Size = new System.Drawing.Size(61, 20);
             this.UpDown_DropMin_6.TabIndex = 21;
@@ -358,6 +388,11 @@
             // UpDown_DropMin_7
             // 
             this.UpDown_DropMin_7.Location = new System.Drawing.Point(1338, 237);
+            this.UpDown_DropMin_7.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
             this.UpDown_DropMin_7.Name = "UpDown_DropMin_7";
             this.UpDown_DropMin_7.Size = new System.Drawing.Size(61, 20);
             this.UpDown_DropMin_7.TabIndex = 22;
@@ -365,6 +400,11 @@
             // UpDown_DropMin_8
             // 
             this.UpDown_DropMin_8.Location = new System.Drawing.Point(1338, 263);
+            this.UpDown_DropMin_8.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
             this.UpDown_DropMin_8.Name = "UpDown_DropMin_8";
             this.UpDown_DropMin_8.Size = new System.Drawing.Size(61, 20);
             this.UpDown_DropMin_8.TabIndex = 23;
@@ -372,6 +412,11 @@
             // UpDown_DropMin_9
             // 
             this.UpDown_DropMin_9.Location = new System.Drawing.Point(1338, 290);
+            this.UpDown_DropMin_9.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
             this.UpDown_DropMin_9.Name = "UpDown_DropMin_9";
             this.UpDown_DropMin_9.Size = new System.Drawing.Size(61, 20);
             this.UpDown_DropMin_9.TabIndex = 24;
@@ -379,6 +424,11 @@
             // UpDown_DropMin_10
             // 
             this.UpDown_DropMin_10.Location = new System.Drawing.Point(1338, 315);
+            this.UpDown_DropMin_10.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
             this.UpDown_DropMin_10.Name = "UpDown_DropMin_10";
             this.UpDown_DropMin_10.Size = new System.Drawing.Size(61, 20);
             this.UpDown_DropMin_10.TabIndex = 25;
@@ -386,6 +436,11 @@
             // UpDown_DropMax_10
             // 
             this.UpDown_DropMax_10.Location = new System.Drawing.Point(1405, 315);
+            this.UpDown_DropMax_10.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
             this.UpDown_DropMax_10.Name = "UpDown_DropMax_10";
             this.UpDown_DropMax_10.Size = new System.Drawing.Size(61, 20);
             this.UpDown_DropMax_10.TabIndex = 35;
@@ -393,6 +448,11 @@
             // UpDown_DropMax_9
             // 
             this.UpDown_DropMax_9.Location = new System.Drawing.Point(1405, 289);
+            this.UpDown_DropMax_9.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
             this.UpDown_DropMax_9.Name = "UpDown_DropMax_9";
             this.UpDown_DropMax_9.Size = new System.Drawing.Size(61, 20);
             this.UpDown_DropMax_9.TabIndex = 34;
@@ -400,6 +460,11 @@
             // UpDown_DropMax_8
             // 
             this.UpDown_DropMax_8.Location = new System.Drawing.Point(1405, 262);
+            this.UpDown_DropMax_8.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
             this.UpDown_DropMax_8.Name = "UpDown_DropMax_8";
             this.UpDown_DropMax_8.Size = new System.Drawing.Size(61, 20);
             this.UpDown_DropMax_8.TabIndex = 33;
@@ -407,6 +472,11 @@
             // UpDown_DropMax_7
             // 
             this.UpDown_DropMax_7.Location = new System.Drawing.Point(1405, 236);
+            this.UpDown_DropMax_7.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
             this.UpDown_DropMax_7.Name = "UpDown_DropMax_7";
             this.UpDown_DropMax_7.Size = new System.Drawing.Size(61, 20);
             this.UpDown_DropMax_7.TabIndex = 32;
@@ -414,6 +484,11 @@
             // UpDown_DropMax_6
             // 
             this.UpDown_DropMax_6.Location = new System.Drawing.Point(1405, 211);
+            this.UpDown_DropMax_6.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
             this.UpDown_DropMax_6.Name = "UpDown_DropMax_6";
             this.UpDown_DropMax_6.Size = new System.Drawing.Size(61, 20);
             this.UpDown_DropMax_6.TabIndex = 31;
@@ -421,6 +496,11 @@
             // UpDown_DropMax_5
             // 
             this.UpDown_DropMax_5.Location = new System.Drawing.Point(1405, 185);
+            this.UpDown_DropMax_5.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
             this.UpDown_DropMax_5.Name = "UpDown_DropMax_5";
             this.UpDown_DropMax_5.Size = new System.Drawing.Size(61, 20);
             this.UpDown_DropMax_5.TabIndex = 30;
@@ -428,6 +508,11 @@
             // UpDown_DropMax_4
             // 
             this.UpDown_DropMax_4.Location = new System.Drawing.Point(1405, 159);
+            this.UpDown_DropMax_4.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
             this.UpDown_DropMax_4.Name = "UpDown_DropMax_4";
             this.UpDown_DropMax_4.Size = new System.Drawing.Size(61, 20);
             this.UpDown_DropMax_4.TabIndex = 29;
@@ -435,6 +520,11 @@
             // UpDown_DropMax_3
             // 
             this.UpDown_DropMax_3.Location = new System.Drawing.Point(1405, 133);
+            this.UpDown_DropMax_3.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
             this.UpDown_DropMax_3.Name = "UpDown_DropMax_3";
             this.UpDown_DropMax_3.Size = new System.Drawing.Size(61, 20);
             this.UpDown_DropMax_3.TabIndex = 28;
@@ -442,6 +532,11 @@
             // UpDown_DropMax_2
             // 
             this.UpDown_DropMax_2.Location = new System.Drawing.Point(1405, 107);
+            this.UpDown_DropMax_2.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
             this.UpDown_DropMax_2.Name = "UpDown_DropMax_2";
             this.UpDown_DropMax_2.Size = new System.Drawing.Size(61, 20);
             this.UpDown_DropMax_2.TabIndex = 27;
@@ -449,6 +544,11 @@
             // UpDown_DropMax_1
             // 
             this.UpDown_DropMax_1.Location = new System.Drawing.Point(1405, 79);
+            this.UpDown_DropMax_1.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
             this.UpDown_DropMax_1.Name = "UpDown_DropMax_1";
             this.UpDown_DropMax_1.Size = new System.Drawing.Size(61, 20);
             this.UpDown_DropMax_1.TabIndex = 26;
