@@ -17,6 +17,7 @@ namespace DropTool
         private MonsterLoader monsterLoader;
         private DropLoader dropLoader;
         private DropInfoLoader dropInfoLoader;
+        private DropUpdater dropUpdater;
 
         private FilterType filterType;
 
@@ -27,6 +28,7 @@ namespace DropTool
             monsterLoader = new MonsterLoader(dbManager, ListView_Monsters);
             dropLoader = new DropLoader(dbManager, TreeView_DropView);
             dropInfoLoader = new DropInfoLoader(dbManager, this);
+            dropUpdater = new DropUpdater(dbManager, this);
             Load += async (sender, e) => await ItemNameCache.GetInstance(dbManager).InitializeCacheAsync();
             Load += async (sender, e) => await monsterLoader.LoadMonstersAsync();
         }
@@ -40,7 +42,6 @@ namespace DropTool
         {
             if (ListView_Monsters.SelectedItems.Count > 0)
             {
-                // Zakładając, że DropLink to ID znajdujące się w pierwszej kolumnie (subitem[0])
                 int dropLinkId = Convert.ToInt32(ListView_Monsters.SelectedItems[0].SubItems[2].Text);
                 int monsterLevel = Convert.ToInt32(ListView_Monsters.SelectedItems[0].Tag);
                 string monsterLocation = ListView_Monsters.SelectedItems[0].SubItems[3].Text;
@@ -113,5 +114,9 @@ namespace DropTool
             }
         }
 
+        private async void Btn_SaveDrop_Click(object sender, EventArgs e)
+        {
+            await dropUpdater.UpdateDropInfoAsync();
+        }
     }
 }

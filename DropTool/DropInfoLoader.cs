@@ -35,7 +35,7 @@ namespace DropTool
                 if (dropInfoTable.Rows.Count > 0)
                 {
                     var row = dropInfoTable.Rows[0];
-                    UpdateControls(row, itemNameCache);
+                    UpdateControls(row, itemNameCache, subId);
                 }
                 else
                 {
@@ -48,22 +48,37 @@ namespace DropTool
             }
         }
 
-        private void UpdateControls(DataRow row, ItemNameCache itemNameCache)
+        private void UpdateControls(DataRow row, ItemNameCache itemNameCache, int subId)
         {
             string itemName;
+            var dropID = Convert.ToInt32(row["id"]);
+            var textboxDropID = _controls["TextBox_MonsterID"];
+            textboxDropID.Invoke(new Action(() => textboxDropID.Text = dropID.ToString()));
+            textboxDropID.Invoke(new Action(() => textboxDropID.Tag = subId.ToString()));
 
             for (int i = 1; i <= 10; i++)
             {
                 var itemId = Convert.ToInt32(row[$"drop_item_id_0{i - 1}"]);
 
-                if (itemId == 0)
-                    itemName = "Empty Slot";
-                else if (itemId > 0)
-                    itemName = itemNameCache.GetItemName(itemId);
-                else
-                    itemName = $"Group: {itemId}";
-
                 var textBoxDropName = _controls[$"TextBox_DropName_{i}"];
+
+                if (itemId == 0)
+                {
+                    itemName = "Empty Slot";
+                    textBoxDropName.Invoke(new Action(() => textBoxDropName.Tag = 0));
+                }
+
+                else if (itemId > 0)
+                {
+                    itemName = itemNameCache.GetItemName(itemId);
+                    textBoxDropName.Invoke(new Action(() => textBoxDropName.Tag = itemId));
+                }
+                else
+                {
+                    itemName = $"Group: {itemId}";
+                    textBoxDropName.Invoke(new Action(() => textBoxDropName.Tag = itemId));
+                }
+
                 textBoxDropName.Invoke(new Action(() => textBoxDropName.Text = itemName));
 
                 var upDownMin = _controls[$"UpDown_DropMin_{i}"] as NumericUpDown;

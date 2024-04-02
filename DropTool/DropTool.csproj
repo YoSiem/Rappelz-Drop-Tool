@@ -49,6 +49,7 @@
     <Compile Include="DBManager.cs" />
     <Compile Include="DropInfoLoader.cs" />
     <Compile Include="DropLoader.cs" />
+    <Compile Include="DropUpdater.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>

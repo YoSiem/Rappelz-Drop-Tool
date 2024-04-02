@@ -741,6 +741,7 @@
             this.Btn_SaveDrop.TabIndex = 56;
             this.Btn_SaveDrop.Text = "Save";
             this.Btn_SaveDrop.UseVisualStyleBackColor = true;
+            this.Btn_SaveDrop.Click += new System.EventHandler(this.Btn_SaveDrop_Click);
             // 
             // Label_MonsterInfo
             // 
