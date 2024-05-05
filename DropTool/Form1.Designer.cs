@@ -28,15 +28,15 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Sub ID #1");
-            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Sub ID #2");
-            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Sub ID #3");
-            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("Sub ID #4");
-            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("Sub ID #5");
-            System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("Sub ID #6");
-            System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("Sub ID #7");
-            System.Windows.Forms.TreeNode treeNode8 = new System.Windows.Forms.TreeNode("Sub ID #8");
-            System.Windows.Forms.TreeNode treeNode9 = new System.Windows.Forms.TreeNode("Sub ID #9");
+            System.Windows.Forms.TreeNode treeNode10 = new System.Windows.Forms.TreeNode("Sub ID #1");
+            System.Windows.Forms.TreeNode treeNode11 = new System.Windows.Forms.TreeNode("Sub ID #2");
+            System.Windows.Forms.TreeNode treeNode12 = new System.Windows.Forms.TreeNode("Sub ID #3");
+            System.Windows.Forms.TreeNode treeNode13 = new System.Windows.Forms.TreeNode("Sub ID #4");
+            System.Windows.Forms.TreeNode treeNode14 = new System.Windows.Forms.TreeNode("Sub ID #5");
+            System.Windows.Forms.TreeNode treeNode15 = new System.Windows.Forms.TreeNode("Sub ID #6");
+            System.Windows.Forms.TreeNode treeNode16 = new System.Windows.Forms.TreeNode("Sub ID #7");
+            System.Windows.Forms.TreeNode treeNode17 = new System.Windows.Forms.TreeNode("Sub ID #8");
+            System.Windows.Forms.TreeNode treeNode18 = new System.Windows.Forms.TreeNode("Sub ID #9");
             this.Btn_LoadFromDB = new System.Windows.Forms.Button();
             this.ComboBox_SearchType = new System.Windows.Forms.ComboBox();
             this.ListView_Monsters = new System.Windows.Forms.ListView();
@@ -192,34 +192,34 @@
             // 
             this.TreeView_DropView.Location = new System.Drawing.Point(619, 40);
             this.TreeView_DropView.Name = "TreeView_DropView";
-            treeNode1.Name = "SubID1";
-            treeNode1.Text = "Sub ID #1";
-            treeNode2.Name = "SubID2";
-            treeNode2.Text = "Sub ID #2";
-            treeNode3.Name = "SubID3";
-            treeNode3.Text = "Sub ID #3";
-            treeNode4.Name = "SubID4";
-            treeNode4.Text = "Sub ID #4";
-            treeNode5.Name = "SubID5";
-            treeNode5.Text = "Sub ID #5";
-            treeNode6.Name = "SubID6";
-            treeNode6.Text = "Sub ID #6";
-            treeNode7.Name = "SubID7";
-            treeNode7.Text = "Sub ID #7";
-            treeNode8.Name = "SubID8";
-            treeNode8.Text = "Sub ID #8";
-            treeNode9.Name = "SubID9";
-            treeNode9.Text = "Sub ID #9";
+            treeNode10.Name = "SubID1";
+            treeNode10.Text = "Sub ID #1";
+            treeNode11.Name = "SubID2";
+            treeNode11.Text = "Sub ID #2";
+            treeNode12.Name = "SubID3";
+            treeNode12.Text = "Sub ID #3";
+            treeNode13.Name = "SubID4";
+            treeNode13.Text = "Sub ID #4";
+            treeNode14.Name = "SubID5";
+            treeNode14.Text = "Sub ID #5";
+            treeNode15.Name = "SubID6";
+            treeNode15.Text = "Sub ID #6";
+            treeNode16.Name = "SubID7";
+            treeNode16.Text = "Sub ID #7";
+            treeNode17.Name = "SubID8";
+            treeNode17.Text = "Sub ID #8";
+            treeNode18.Name = "SubID9";
+            treeNode18.Text = "Sub ID #9";
             this.TreeView_DropView.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode1,
-            treeNode2,
-            treeNode3,
-            treeNode4,
-            treeNode5,
-            treeNode6,
-            treeNode7,
-            treeNode8,
-            treeNode9});
+            treeNode10,
+            treeNode11,
+            treeNode12,
+            treeNode13,
+            treeNode14,
+            treeNode15,
+            treeNode16,
+            treeNode17,
+            treeNode18});
             this.TreeView_DropView.Size = new System.Drawing.Size(435, 397);
             this.TreeView_DropView.TabIndex = 4;
             this.TreeView_DropView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.TreeView_DropView_AfterSelect);
@@ -735,7 +735,7 @@
             // 
             // Btn_SaveDrop
             // 
-            this.Btn_SaveDrop.Location = new System.Drawing.Point(1307, 353);
+            this.Btn_SaveDrop.Location = new System.Drawing.Point(1452, 403);
             this.Btn_SaveDrop.Name = "Btn_SaveDrop";
             this.Btn_SaveDrop.Size = new System.Drawing.Size(104, 23);
             this.Btn_SaveDrop.TabIndex = 56;

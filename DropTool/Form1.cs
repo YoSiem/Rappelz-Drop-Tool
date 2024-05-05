@@ -116,7 +116,10 @@ namespace DropTool
 
         private async void Btn_SaveDrop_Click(object sender, EventArgs e)
         {
+            bool isNumber = int.TryParse(TextBox_MonsterID.Text, out int number);
+            if (!isNumber) { return; }
             await dropUpdater.UpdateDropInfoAsync();
+            MessageBox.Show("Update Compleated", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
 }
