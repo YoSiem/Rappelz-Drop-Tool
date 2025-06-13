@@ -160,6 +160,7 @@
             this.ListView_Monsters.HideSelection = false;
             this.ListView_Monsters.LabelWrap = false;
             this.ListView_Monsters.Location = new System.Drawing.Point(12, 41);
+            this.ListView_Monsters.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Left)));
             this.ListView_Monsters.Name = "ListView_Monsters";
             this.ListView_Monsters.Size = new System.Drawing.Size(601, 397);
             this.ListView_Monsters.TabIndex = 3;
@@ -189,8 +190,9 @@
             this.C_Location.Width = 185;
             // 
             // TreeView_DropView
-            // 
+            //
             this.TreeView_DropView.Location = new System.Drawing.Point(619, 40);
+            this.TreeView_DropView.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) | System.Windows.Forms.AnchorStyles.Left)));
             this.TreeView_DropView.Name = "TreeView_DropView";
             treeNode10.Name = "SubID1";
             treeNode10.Text = "Sub ID #1";
@@ -227,6 +229,7 @@
             // TextBox_MonsterID
             // 
             this.TextBox_MonsterID.Location = new System.Drawing.Point(1060, 40);
+            this.TextBox_MonsterID.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.TextBox_MonsterID.Name = "TextBox_MonsterID";
             this.TextBox_MonsterID.ReadOnly = true;
             this.TextBox_MonsterID.Size = new System.Drawing.Size(100, 20);
@@ -736,6 +739,7 @@
             // Btn_SaveDrop
             // 
             this.Btn_SaveDrop.Location = new System.Drawing.Point(1452, 403);
+            this.Btn_SaveDrop.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.Btn_SaveDrop.Name = "Btn_SaveDrop";
             this.Btn_SaveDrop.Size = new System.Drawing.Size(104, 23);
             this.Btn_SaveDrop.TabIndex = 56;
@@ -796,6 +800,7 @@
             this.Label_TotalChance.AutoSize = true;
             this.Label_TotalChance.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.Label_TotalChance.Location = new System.Drawing.Point(1458, 63);
+            this.Label_TotalChance.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.Label_TotalChance.Name = "Label_TotalChance";
             this.Label_TotalChance.Size = new System.Drawing.Size(99, 13);
             this.Label_TotalChance.TabIndex = 62;

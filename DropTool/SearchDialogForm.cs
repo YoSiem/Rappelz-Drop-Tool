@@ -17,6 +17,7 @@ namespace DropTool
         public SearchDialogForm(FilterType type)
         {
             InitializeComponent();
+            ThemeManager.ApplyDarkTheme(this);
 
             if (type == FilterType.MonsterID)
             {

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data;
 using System.Data.SqlClient;
+using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -35,20 +36,25 @@ namespace DropTool
             File.WriteAllText(ConfigFileName, exampleConnectionString);
         }
 
-        public async Task<DataTable> ExecuteQueryAsync(string query)
+        public async Task<DataTable> ExecuteQueryAsync(string query, Dictionary<string, object> parameters = null)
         {
             DataTable dataTable = new DataTable();
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
+                using (SqlCommand command = new SqlCommand(query, connection))
                 {
-                    await connection.OpenAsync();
-                    using (SqlCommand command = new SqlCommand(query, connection))
+                    if (parameters != null)
                     {
-                        using (SqlDataReader reader = await command.ExecuteReaderAsync())
+                        foreach (var param in parameters)
                         {
-                            dataTable.Load(reader);
+                            command.Parameters.AddWithValue(param.Key, param.Value ?? DBNull.Value);
                         }
+                    }
+                    await connection.OpenAsync().ConfigureAwait(false);
+                    using (SqlDataReader reader = await command.ExecuteReaderAsync().ConfigureAwait(false))
+                    {
+                        dataTable.Load(reader);
                     }
                 }
             }
@@ -64,17 +70,22 @@ namespace DropTool
             return dataTable;
         }
 
-        public async Task<int> ExecuteNonQueryAsync(string query)
+        public async Task<int> ExecuteNonQueryAsync(string query, Dictionary<string, object> parameters = null)
         {
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
+                using (SqlCommand command = new SqlCommand(query, connection))
                 {
-                    await connection.OpenAsync();
-                    using (SqlCommand command = new SqlCommand(query, connection))
+                    if (parameters != null)
                     {
-                        return await command.ExecuteNonQueryAsync();
+                        foreach (var param in parameters)
+                        {
+                            command.Parameters.AddWithValue(param.Key, param.Value ?? DBNull.Value);
+                        }
                     }
+                    await connection.OpenAsync().ConfigureAwait(false);
+                    return await command.ExecuteNonQueryAsync().ConfigureAwait(false);
                 }
             }
             catch (SqlException ex)
@@ -90,17 +101,22 @@ namespace DropTool
             }
         }
 
-        public async Task<object> ExecuteScalarAsync(string query)
+        public async Task<object> ExecuteScalarAsync(string query, Dictionary<string, object> parameters = null)
         {
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
+                using (SqlCommand command = new SqlCommand(query, connection))
                 {
-                    await connection.OpenAsync();
-                    using (SqlCommand command = new SqlCommand(query, connection))
+                    if (parameters != null)
                     {
-                        return await command.ExecuteScalarAsync();
+                        foreach (var param in parameters)
+                        {
+                            command.Parameters.AddWithValue(param.Key, param.Value ?? DBNull.Value);
+                        }
                     }
+                    await connection.OpenAsync().ConfigureAwait(false);
+                    return await command.ExecuteScalarAsync().ConfigureAwait(false);
                 }
             }
             catch (SqlException ex)
