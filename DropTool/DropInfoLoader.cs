@@ -12,10 +12,12 @@ namespace DropTool
     {
         private readonly DBManager _dbManager;
         private readonly Dictionary<string, Control> _controls;
+        private readonly Form _form;
 
         public DropInfoLoader(DBManager dbManager, Form form)
         {
             _dbManager = dbManager ?? throw new ArgumentNullException(nameof(dbManager));
+            _form = form ?? throw new ArgumentNullException(nameof(form));
 
             _controls = form.Controls.OfType<Control>()
                 .Where(c => c.Name.StartsWith("TextBox_") || c.Name.StartsWith("UpDown_") || c.Name.StartsWith("Label_"))
@@ -28,9 +30,14 @@ namespace DropTool
             {
                 var itemNameCache = ItemNameCache.GetInstance(_dbManager);
                 string tableName = monsterId < 0 ? "DropGroupResource" : "MonsterDropTableResource";
-                string query = $"SELECT * FROM {tableName} WHERE id = {monsterId}" + (subId != -1 ? $" AND sub_id = {subId}" : string.Empty);
+                string query = $"SELECT * FROM {tableName} WHERE id = @id" + (subId != -1 ? " AND sub_id = @sub" : string.Empty);
+                var parameters = new Dictionary<string, object> { {"@id", monsterId} };
+                if (subId != -1)
+                {
+                    parameters.Add("@sub", subId);
+                }
 
-                var dropInfoTable = await _dbManager.ExecuteQueryAsync(query).ConfigureAwait(false);
+                var dropInfoTable = await _dbManager.ExecuteQueryAsync(query, parameters).ConfigureAwait(false);
 
                 if (dropInfoTable.Rows.Count > 0)
                 {
@@ -50,77 +57,80 @@ namespace DropTool
 
         private void UpdateControls(DataRow row, ItemNameCache itemNameCache, int subId)
         {
-            string itemName;
-            var dropID = Convert.ToInt32(row["id"]);
-            var textboxDropID = _controls["TextBox_MonsterID"];
-            textboxDropID.Invoke(new Action(() => textboxDropID.Text = dropID.ToString()));
-            textboxDropID.Invoke(new Action(() => textboxDropID.Tag = subId.ToString()));
+            var dropId = Convert.ToInt32(row["id"]);
+
+            var itemNames = new string[10];
+            var itemTags = new int[10];
+            var minCounts = new decimal[10];
+            var maxCounts = new decimal[10];
+            var dropChances = new string[10];
 
             for (int i = 1; i <= 10; i++)
             {
-                var itemId = Convert.ToInt32(row[$"drop_item_id_0{i - 1}"]);
-
-                var textBoxDropName = _controls[$"TextBox_DropName_{i}"];
+                int itemId = Convert.ToInt32(row[$"drop_item_id_0{i - 1}"]);
+                string name;
 
                 if (itemId == 0)
                 {
-                    itemName = "Empty Slot";
-                    textBoxDropName.Invoke(new Action(() => textBoxDropName.Tag = 0));
+                    name = "Empty Slot";
                 }
-
                 else if (itemId > 0)
                 {
-                    itemName = itemNameCache.GetItemName(itemId);
-                    textBoxDropName.Invoke(new Action(() => textBoxDropName.Tag = itemId));
+                    name = itemNameCache.GetItemName(itemId);
                 }
                 else
                 {
-                    itemName = $"Group: {itemId}";
-                    textBoxDropName.Invoke(new Action(() => textBoxDropName.Tag = itemId));
+                    name = $"Group: {itemId}";
                 }
 
-                textBoxDropName.Invoke(new Action(() => textBoxDropName.Text = itemName));
-
-                var upDownMin = _controls[$"UpDown_DropMin_{i}"] as NumericUpDown;
-                var upDownMax = _controls[$"UpDown_DropMax_{i}"] as NumericUpDown;
-
-
-                if (upDownMin != null && upDownMax != null)
-                {
-                    var minCount = Convert.ToDecimal(row[$"drop_min_count_0{i - 1}"]);
-                    var maxCount = Convert.ToDecimal(row[$"drop_max_count_0{i - 1}"]);
-
-                    upDownMin.Invoke(new Action(() => upDownMin.Value = minCount));
-                    upDownMax.Invoke(new Action(() => upDownMax.Value = maxCount));
-                }
-
-
-                var textBoxDropChance = _controls[$"TextBox_DropChance_{i}"] as MaskedTextBox;
-                if (textBoxDropChance != null)
-                {
-                    var dropChanceText = row[$"drop_percentage_0{i - 1}"].ToString();
-                    textBoxDropChance.Invoke(new Action(() => textBoxDropChance.Text = dropChanceText));
-                }
+                itemNames[i - 1] = name;
+                itemTags[i - 1] = itemId;
+                minCounts[i - 1] = Convert.ToDecimal(row[$"drop_min_count_0{i - 1}"]);
+                maxCounts[i - 1] = Convert.ToDecimal(row[$"drop_max_count_0{i - 1}"]);
+                dropChances[i - 1] = row[$"drop_percentage_0{i - 1}"].ToString();
             }
-            SumDropChances();
-        }
-        private void SumDropChances()
-        {
-            double sum = 0.0;
-            for (int i = 1; i <= 10; i++)
+
+            _form.Invoke(new Action(() =>
             {
-                if (double.TryParse(_controls[$"TextBox_DropChance_{i}"].Text, out double chance))
-                {
-                    sum += chance;
-                }
-            }
+                var textboxDropID = _controls["TextBox_MonsterID"];
+                textboxDropID.Text = dropId.ToString();
+                textboxDropID.Tag = subId.ToString();
 
-            var labelTotalChance = _controls["Label_TotalChance"];
-            if (labelTotalChance != null)
-            {
-                labelTotalChance.Invoke(new Action(() => labelTotalChance.Text = $"Total: {sum:F5}%"));
-            }
+                for (int i = 1; i <= 10; i++)
+                {
+                    var textBoxDropName = _controls[$"TextBox_DropName_{i}"];
+                    textBoxDropName.Text = itemNames[i - 1];
+                    textBoxDropName.Tag = itemTags[i - 1];
+
+                    if (_controls[$"UpDown_DropMin_{i}"] is NumericUpDown upDownMin &&
+                        _controls[$"UpDown_DropMax_{i}"] is NumericUpDown upDownMax)
+                    {
+                        upDownMin.Value = minCounts[i - 1];
+                        upDownMax.Value = maxCounts[i - 1];
+                    }
+
+                    if (_controls[$"TextBox_DropChance_{i}"] is MaskedTextBox textBoxDropChance)
+                    {
+                        textBoxDropChance.Text = dropChances[i - 1];
+                    }
+                }
+
+                double sum = 0.0;
+                for (int i = 1; i <= 10; i++)
+                {
+                    if (double.TryParse(dropChances[i - 1], out double chance))
+                    {
+                        sum += chance;
+                    }
+                }
+
+                if (_controls.TryGetValue("Label_TotalChance", out var labelTotalChance))
+                {
+                    labelTotalChance.Text = $"Total: {sum:F5}%";
+                }
+            }));
         }
+
 
 
     }

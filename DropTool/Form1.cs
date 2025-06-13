@@ -24,6 +24,7 @@ namespace DropTool
         public MainWindow()
         {
             InitializeComponent();
+            ThemeManager.ApplyDarkTheme(this);
             dbManager = new DBManager();
             monsterLoader = new MonsterLoader(dbManager, ListView_Monsters);
             dropLoader = new DropLoader(dbManager, TreeView_DropView);

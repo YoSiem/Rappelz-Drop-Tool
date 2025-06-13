@@ -1,7 +1,6 @@
 ﻿using System.Data;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Data.SqlClient;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,62 +23,62 @@ namespace DropTool
         public async Task LoadDropsAsync(int dropLinkId)
         {
             string query = $@"
-                SELECT id, sub_id, {string.Join(", ", Enumerable.Range(0, 10).Select(i => $"drop_item_id_0{i}"))} 
-                FROM MonsterDropTableResource 
-                WHERE id = {dropLinkId};";
+                SELECT id, sub_id, {string.Join(", ", Enumerable.Range(0, 10).Select(i => $"drop_item_id_0{i}"))}
+                FROM MonsterDropTableResource
+                WHERE id = @id;";
 
-            DataTable dataTable = await dbManager.ExecuteQueryAsync(query);
+            var parameters = new Dictionary<string, object> { {"@id", dropLinkId} };
+            DataTable dataTable = await dbManager.ExecuteQueryAsync(query, parameters).ConfigureAwait(false);
 
-            treeView.Nodes.Clear();
-            treeView.BeginUpdate();
+            var rootNodes = new List<TreeNode>();
 
             if (dataTable.Rows.Count == 0)
             {
-                TreeNode noDataNode = new TreeNode("No drop data available for this Droplink ID.");
-                treeView.Nodes.Add(noDataNode);
-                treeView.EndUpdate();
-                return;
+                rootNodes.Add(new TreeNode("No drop data available for this Droplink ID."));
             }
-
-            foreach (DataRow row in dataTable.Rows)
+            else
             {
-                int id = Convert.ToInt32(row["id"]);
-                int subId = Convert.ToInt32(row["sub_id"]);
-                TreeNode subIdNode = new TreeNode($"Sub ID #{subId}")
+                foreach (DataRow row in dataTable.Rows)
                 {
-                    Name = subId.ToString(),
-                    Tag = $"{id},{subId}"
-                };
+                    int id = Convert.ToInt32(row["id"]);
+                    int subId = Convert.ToInt32(row["sub_id"]);
+                    TreeNode subIdNode = new TreeNode($"Sub ID #{subId}")
+                    {
+                        Name = subId.ToString(),
+                        Tag = $"{id},{subId}"
+                    };
 
-                int[] itemIDs = Enumerable.Range(0, 10).Select(i => Convert.ToInt32(row[$"drop_item_id_0{i}"])).ToArray();
+                    for (int i = 0; i < 10; i++)
+                    {
+                        int itemID = Convert.ToInt32(row[$"drop_item_id_0{i}"]);
+                        if (itemID > 0)
+                        {
+                            string itemName = itemNameCache.GetItemName(itemID);
+                            subIdNode.Nodes.Add(new TreeNode($"Item: {itemName}"));
+                        }
+                        else if (itemID < 0)
+                        {
+                            TreeNode groupNode = new TreeNode($"Drop Group: ID {itemID}") { Tag = itemID };
+                            subIdNode.Nodes.Add(groupNode);
+                            await FillSubIdNode(groupNode, itemID).ConfigureAwait(false);
+                        }
+                        else
+                        {
+                            subIdNode.Nodes.Add(new TreeNode("Empty Slot"));
+                        }
+                    }
 
-                for (int i = 0; i < 10; i++)
-                {
-                    int itemID = Convert.ToInt32(row[$"drop_item_id_0{i}"]);
-                    if (itemID > 0)
-                    {
-                        string itemName =  itemNameCache.GetItemName(itemID);
-                        TreeNode itemNode = new TreeNode($"Item: {itemName}");
-                        subIdNode.Nodes.Add(itemNode);
-                    }
-                    else if (itemID < 0)
-                    {
-                        TreeNode groupNode = new TreeNode($"Drop Group: ID {itemID}");
-                        subIdNode.Nodes.Add(groupNode);
-                        groupNode.Tag = itemID;
-                        await FillSubIdNode(groupNode, itemID);
-                    }
-                    else
-                    {
-                        TreeNode emptyNode = new TreeNode("Empty Slot");
-                        subIdNode.Nodes.Add(emptyNode);
-                    }
+                    rootNodes.Add(subIdNode);
                 }
-
-                treeView.Nodes.Add(subIdNode);
             }
 
-            treeView.EndUpdate();
+            treeView.Invoke(new Action(() =>
+            {
+                treeView.BeginUpdate();
+                treeView.Nodes.Clear();
+                treeView.Nodes.AddRange(rootNodes.ToArray());
+                treeView.EndUpdate();
+            }));
         }
 
         private async Task FillSubIdNode(TreeNode subIdNode, int groupId)
@@ -87,9 +86,10 @@ namespace DropTool
             string query = $@"
                                 SELECT id, {string.Join(", ", Enumerable.Range(0, 10).Select(i => $"drop_item_id_0{i}"))}
                                 FROM DropGroupResource
-                                WHERE id = {groupId};";
+                                WHERE id = @id;";
 
-            DataTable dataTable = await dbManager.ExecuteQueryAsync(query);
+            var parameters = new Dictionary<string, object> { {"@id", groupId} };
+            DataTable dataTable = await dbManager.ExecuteQueryAsync(query, parameters).ConfigureAwait(false);
 
             if (dataTable.Rows.Count == 0)
             {

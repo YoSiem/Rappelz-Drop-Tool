@@ -29,35 +29,43 @@ namespace DropTool
 
             string tableName = dropInfo.Id < 0 ? "DropGroupResource" : "MonsterDropTableResource";
             var queryBuilder = new StringBuilder($"UPDATE {tableName} SET ");
+            var parameters = new Dictionary<string, object>();
 
             for (int i = 1; i <= 10; i++)
             {
-                var textBoxDropName = _controls[$"TextBox_DropName_{i}"].Tag.ToString();
-                var upDownMin = _controls[$"UpDown_DropMin_{i}"].Text;
-                var upDownMax = _controls[$"UpDown_DropMax_{i}"].Text;
-                var textBoxDropChance = _controls[$"TextBox_DropChance_{i}"].Text;
+                int itemId = Convert.ToInt32(_controls[$"TextBox_DropName_{i}"].Tag);
+                int min = Convert.ToInt32(_controls[$"UpDown_DropMin_{i}"].Text);
+                int max = Convert.ToInt32(_controls[$"UpDown_DropMax_{i}"].Text);
+                double chance = Convert.ToDouble(_controls[$"TextBox_DropChance_{i}"].Text);
 
-                dropInfo.DropItemIds[i - 1] = Convert.ToInt32(textBoxDropName);
-                dropInfo.DropCountMin[i - 1] = Convert.ToInt32(upDownMin);
-                dropInfo.DropCountMax[i - 1] = Convert.ToInt32(upDownMax);
-                dropInfo.DropItemChances[i - 1] = Convert.ToDouble(textBoxDropChance);
+                dropInfo.DropItemIds[i - 1] = itemId;
+                dropInfo.DropCountMin[i - 1] = min;
+                dropInfo.DropCountMax[i - 1] = max;
+                dropInfo.DropItemChances[i - 1] = chance;
 
-                queryBuilder.Append($"drop_item_id_0{i-1} = {dropInfo.DropItemIds[i - 1]}, ");
-                queryBuilder.Append($"drop_min_count_0{i-1} = {dropInfo.DropCountMin[i - 1]}, ");
-                queryBuilder.Append($"drop_max_count_0{i-1} = {dropInfo.DropCountMax[i - 1]}, ");
-                queryBuilder.Append($"drop_percentage_0{i-1} = {dropInfo.DropItemChances[i - 1].ToString(System.Globalization.CultureInfo.InvariantCulture)}, ");
+                queryBuilder.Append($"drop_item_id_0{i-1} = @ItemId{i}, ");
+                queryBuilder.Append($"drop_min_count_0{i-1} = @Min{i}, ");
+                queryBuilder.Append($"drop_max_count_0{i-1} = @Max{i}, ");
+                queryBuilder.Append($"drop_percentage_0{i-1} = @Chance{i}, ");
+
+                parameters[$"@ItemId{i}"] = itemId;
+                parameters[$"@Min{i}"] = min;
+                parameters[$"@Max{i}"] = max;
+                parameters[$"@Chance{i}"] = chance;
             }
 
             queryBuilder.Length -= 2;
 
-            queryBuilder.Append($" WHERE id = {dropInfo.Id}");
+            queryBuilder.Append(" WHERE id = @Id");
+            parameters["@Id"] = dropInfo.Id;
 
             if (dropInfo.Id > 0)
             {
-                queryBuilder.Append($" AND sub_id = {dropInfo.SubId}");
+                queryBuilder.Append(" AND sub_id = @SubId");
+                parameters["@SubId"] = dropInfo.SubId;
             }
 
-            await _dbManager.ExecuteNonQueryAsync(queryBuilder.ToString());
+            await _dbManager.ExecuteNonQueryAsync(queryBuilder.ToString(), parameters).ConfigureAwait(false);
             //MessageBox.Show(queryBuilder.ToString(), "Wygenerowane zapytanie SQL", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
         }
